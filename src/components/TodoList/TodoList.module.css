@@ -1,0 +1,13 @@
+.todoContainer {
+    width: 100%;
+    color: #fff;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.list {
+    list-style: none;
+    margin-left: 10px;
+    padding: 0;
+}
+

@@ -1,0 +1,44 @@
+.addTask {
+    border: 1px solid black;
+    width: 90%;
+    margin: auto auto 50px;
+    display: flex;
+    border-radius: 4px;
+    background: rgba(0,0,0, .4);
+}
+
+.addTask button {
+    border: none;
+    width: 40px;
+    height: 40px;
+    background: none;
+    color: darkgrey;
+    transition: 0.4s;
+}
+
+button:hover {
+    color: white;
+    transition: 0.4s;
+}
+
+button i {
+    padding: 5px;
+}
+
+input {
+    width: 100%;
+    margin-left: 10px;
+    border:none;
+    background: none;
+    outline:none;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 10px;
+}
+
+input::placeholder {
+    color: white;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}

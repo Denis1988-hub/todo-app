@@ -1,0 +1,24 @@
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Texturina', serif;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+
+}
+
+.wrapper {
+    width: 720px;
+    margin: 100px auto;
+    display: flex;
+    min-height: 500px;
+    max-height: 80vh;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-radius: 1px;
+    box-shadow: 3px 3px 20px #ddd;
+}

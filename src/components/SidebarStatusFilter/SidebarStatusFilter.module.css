@@ -1,0 +1,30 @@
+.SidebarStatusFilter {
+    margin: 1em 1em;
+    cursor: pointer;
+    padding: 0;
+    font-weight: bold;
+}
+
+.SidebarStatusFilter:active {
+    color: darkcyan;
+}
+
+.SidebarStatusFilter i {
+    font-size: 20px;
+}
+
+.gold {
+    color: gold;
+}
+
+.red {
+    color: #bc4252;
+}
+
+.green {
+    color: green;
+}
+
+.blue {
+    color: darkblue;
+}

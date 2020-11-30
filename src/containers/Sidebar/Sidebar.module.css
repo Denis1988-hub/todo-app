@@ -1,0 +1,14 @@
+.Sidebar {
+    width: 25%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: #f6f6f6;
+    font-size: 14px;
+}
+
+.SidebarHeader {
+    background: linear-gradient(to left, #c2434c, #e96884);
+    color: white;
+    font-weight: bold;
+}
