@@ -3,12 +3,14 @@ import classes from './Todo.module.css'
 import TodoList from "../../components/TodoList/TodoList";
 import AddTask from "../../components/AddTask/AddTask";
 import Time from "../../components/Time/Time";
+import Alert from "../../components/UI/Alert/Alert";
+import Sidebar from "../Sidebar/Sidebar";
 
 class Todo extends Component {
 
-  idNum = 100;
+  idNum = 1;
 
-  createTodoDataState(label) {
+  createTodoData(label) {
     return {
       label,
       important: false,
@@ -19,12 +21,12 @@ class Todo extends Component {
 
   state = {
     todoData: [
-        this.createTodoDataState('Сделать зарядку'),
-        this.createTodoDataState('Выпить чашечку кофе'),
-        this.createTodoDataState('Погулять с собакой'),
-        this.createTodoDataState('Принять витамины')
+      this.createTodoData('Сделать зарядку'),
+      this.createTodoData('Выпить чашечку кофе'),
+      this.createTodoData('Погулять с собакой'),
+      this.createTodoData('Принять витамины')
     ],
-    count: 0
+    count: 0,
   };
 
 
@@ -110,20 +112,25 @@ class Todo extends Component {
   render() {
     const {todoData, count} = this.state;
 
+
     return (
-        <div className={classes.todo}>
-          <Time/>
-          <TodoList
-              todoData={todoData}
-              doneCount={count}
-              onToggleDone={this.onToggleDone}
-              onToggleImportant={this.onToggleImportant}
-              onDeleteTask={this.onDeleteTask}
-          />
-          <AddTask
-              onAddTask={this.onAddTask}
-          />
-        </div>
+          <div className={classes.wrapper}>
+            <Sidebar />
+            <div className={classes.todo}>
+              <Time/>
+              <TodoList
+                  todoData={todoData}
+                  doneCount={count}
+                  onToggleDone={this.onToggleDone}
+                  onToggleImportant={this.onToggleImportant}
+                  onDeleteTask={this.onDeleteTask}
+              />
+              <AddTask
+                  onAddTask={this.onAddTask}
+              />
+              <Alert/>
+            </div>
+          </div>
     );
   }
 }

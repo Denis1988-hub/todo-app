@@ -6,8 +6,25 @@ import SidebarStatusFilter from "../../components/SidebarStatusFilter/SidebarSta
 class Sidebar extends Component {
 
   state = {
-
+    filter: [
+        'all', 'important', 'done', 'deleted'
+    ]
   };
+
+  filter = (obj, filter) => {
+    switch (filter) {
+      case 'all':
+        return obj;
+      case 'important':
+        return obj.filter(el => el.important === true);
+      case 'done':
+        return obj.filter(el => el.done === true);
+      case 'deleted':
+        return obj.filter(el => el.deleted === true);
+      default:
+        return obj
+      }
+    };
 
   render() {
     return (
