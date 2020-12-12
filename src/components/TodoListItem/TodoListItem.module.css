@@ -30,4 +30,13 @@ i {
     color: red;
 }
 
+.deleted {
+    color: red;
+}
+
+.deleted:hover {
+    color: green;
+    transition: .2s;
+}
+
 

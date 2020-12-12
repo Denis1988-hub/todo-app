@@ -2,21 +2,22 @@ import React from 'react';
 import classes from './TodoList.module.css'
 import TodoListItem from "../TodoListItem/TodoListItem";
 
-const TodoList = ({todoData, doneCount, onToggleDone, onToggleImportant, onDeleteTask}) => {
+const TodoList = ({todoData, onToggleDone, onToggleImportant, onDeleteTask}) => {
+
+    const isEmpty = () => {
+        return Object.keys(todoData).length === 0;
+    };
 
     return (
         <div className={classes.todoContainer}>
-            <h6>Задачи</h6>
-            <p>завершено <strong>
-              {doneCount}
-            </strong> из
-                <strong>&nbsp;
-                    {todoData.length}
-                </strong>
-            </p>
+            <p>Задачи</p>
             <ul className={classes.list}>
                 {
-                    todoData.map((item) => {
+                    isEmpty()
+                        ? (<div className={classes.empty}>
+                            <i className="far fa-clipboard"><h2>Ничего нет</h2></i>
+                        </div>)
+                        : todoData.map((item) => {
                         return (
                             <TodoListItem
                                 key={item.id}

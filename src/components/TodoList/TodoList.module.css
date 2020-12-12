@@ -3,6 +3,7 @@
     color: #fff;
     font-size: 13px;
     margin-left: 10px;
+
 }
 
 .list {
@@ -11,3 +12,7 @@
     padding: 0;
 }
 
+.empty i {
+    padding: 50px;
+    font-size: 100px
+}

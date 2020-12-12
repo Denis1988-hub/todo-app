@@ -5,54 +5,37 @@ import SidebarStatusFilter from "../../components/SidebarStatusFilter/SidebarSta
 
 class Sidebar extends Component {
 
-  state = {
-    filter: [
-        'all', 'important', 'done', 'deleted'
-    ]
-  };
-
-  filter = (obj, filter) => {
-    switch (filter) {
-      case 'all':
-        return obj;
-      case 'important':
-        return obj.filter(el => el.important === true);
-      case 'done':
-        return obj.filter(el => el.done === true);
-      case 'deleted':
-        return obj.filter(el => el.deleted === true);
-      default:
-        return obj
-      }
+    state = {
+        data: [
+            {filter: 'all',  colorIcon: 'blue', classIcon: 'fas fa-infinity', label: 'Все'},
+            {filter: 'important',  colorIcon: 'gold', classIcon: 'fas fa-star', label: 'Важные'},
+            {filter: 'done',  colorIcon: 'green', classIcon: 'fas fa-check', label: 'Завершенные'},
+            {filter: 'deleted',  colorIcon: 'red', classIcon: 'far fa-trash-alt', label: 'Удаленные'}
+        ]
     };
 
   render() {
+      const { data } = this.state;
     return (
         <div className={classes.Sidebar}>
           <p className={classes.SidebarHeader}>To Do</p>
           <Profile/>
-          <SidebarStatusFilter
-              classIcon={"fas fa-infinity"}
-              colorIcon={'blue'}>
-            Все
-          </SidebarStatusFilter>
-          <SidebarStatusFilter
-              classIcon={"fas fa-star"}
-              colorIcon={'gold'}>
-            Важные
-          </SidebarStatusFilter>
 
-          <SidebarStatusFilter
-              classIcon={"fas fa-check"}
-              colorIcon={'green'}>
-            Завершенные
-          </SidebarStatusFilter>
+            {
+                data.map((item, index) => {
+                    return(
+                        <SidebarStatusFilter
+                            key={index}
+                            classIcon={item.classIcon}
+                            filter={item.filter}
+                            colorIcon={item.colorIcon}
+                            label={item.label}
+                            filterItem={this.props.filter}
+                        />
+                    )
+                })
+            }
 
-          <SidebarStatusFilter
-              classIcon={"far fa-trash-alt"}
-              colorIcon={'red'}>
-            Удаленные
-          </SidebarStatusFilter>
         </div>
     );
   }

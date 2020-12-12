@@ -3,21 +3,20 @@ import classes from './SidebarStatusFilter.module.css'
 
 const SidebarStatusFilter = (props) => {
 
-  const { colorIcon, classIcon } = props;
+    const {colorIcon, classIcon, filterItem, label, filter} = props;
 
-  const iconClass = [
-      classIcon
-  ];
+    const iconClass = [classIcon];
+    if (colorIcon)
+        iconClass.push(classes[colorIcon]);
 
-  if (colorIcon)
-    iconClass.push(classes[colorIcon]);
-
-  return (
-      <div className={classes.SidebarStatusFilter}>
-        <i className={iconClass.join(" ")} />
-          {props.children}
-      </div>
-  );
+    return (
+        <div className={classes.SidebarStatusFilter}
+             onClick={() => filterItem(filter)}
+        >
+            <i className={iconClass.join(" ")}/>
+            {label}
+        </div>
+    );
 };
 
 export default SidebarStatusFilter;
