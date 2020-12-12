@@ -43,7 +43,9 @@ const TodoListItem = (props) => {
       <li className={classes.deleted}>
         {props.label}
         <span className={classes.deletedIcon}>
-                <i className="fas fa-trash-restore"/>
+                <i className="fas fa-trash-restore"
+                  onClick={props.onRestoreItem}
+                />
             </span>
       </li>
   );

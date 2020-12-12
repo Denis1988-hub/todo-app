@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './TodoList.module.css'
 import TodoListItem from "../TodoListItem/TodoListItem";
 
-const TodoList = ({todoData, onToggleDone, onToggleImportant, onDeleteTask}) => {
+const TodoList = ({todoData, onToggleDone, onToggleImportant, onDeleteTask, onRestoreItem}) => {
 
     const isEmpty = () => {
         return Object.keys(todoData).length === 0;
@@ -25,6 +25,7 @@ const TodoList = ({todoData, onToggleDone, onToggleImportant, onDeleteTask}) => 
                                 onToggleDone={() => onToggleDone(item.id)}
                                 onToggleImportant={() => onToggleImportant(item.id)}
                                 onDeleteTask={() => onDeleteTask(item.id)}
+                                onRestoreItem={() => onRestoreItem(item.id)}
                             />
                         )
                     })

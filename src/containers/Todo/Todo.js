@@ -115,8 +115,9 @@ class Todo extends Component {
 
     createDeleteObj(obj, index) {
         const sliceTask = [...obj.slice(index)];
-        sliceTask[0].ifDelete = true
+        sliceTask[0].ifDelete = true;
         this.deletedArray.push(...sliceTask);
+        console.log(this.deletedArray)
         return this.deletedArray
     }
 
@@ -147,6 +148,10 @@ class Todo extends Component {
         return this.state.deletedTodo;
     }
 
+    onRestoreDeleteItem = id => {
+        console.log(id)
+    };
+
     render() {
         const {todoData, count, filter} = this.state;
         const showFilteredItems = this.getFilteredItems(todoData, filter);
@@ -172,6 +177,7 @@ class Todo extends Component {
                         onToggleDone={this.onToggleDone}
                         onToggleImportant={this.onToggleImportant}
                         onDeleteTask={this.onDeleteTask}
+                        onRestoreItem={this.onRestoreDeleteItem}
                     />
                     <AddTask
                         onAddTask={this.onAddTask}
