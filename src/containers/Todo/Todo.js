@@ -5,6 +5,8 @@ import AddTask from "../../components/AddTask/AddTask";
 import Time from "../../components/Time/Time";
 import Alert from "../../components/UI/Alert/Alert";
 import Sidebar from "../Sidebar/Sidebar";
+import Modal from "../../components/Modal/Modal";
+import Drawer from "../../components/UI/Drawer/Drawer";
 
 class Todo extends Component {
 
@@ -30,11 +32,15 @@ class Todo extends Component {
         count: 0,
         filter: '',
         deletedTodo: [],
+        modalIsOpen: false,
+        drawerIsOpen: false,
+        confirmDelete: false
     };
 
     deletedArray = [];  //здесь будут сохраняться удаленные toDo
 
 
+    // свойства для нового ТоДо
     addItem(text) {
         return {
             label: text,
@@ -45,6 +51,12 @@ class Todo extends Component {
         }
     };
 
+    // метод возвращает индекс массива
+    indexArr(array, id) {
+        return array.findIndex(el => el.id === id)
+    }
+
+    /* метод принимает новый ТоДо соединяеться с пред массивом и обнов state */
     onAddTask = text => {
         const {todoData} = this.state;
         const newTask = this.addItem(text);
@@ -61,7 +73,7 @@ class Todo extends Component {
 
     onToggleDone = id => {
         const {todoData} = this.state;
-        const index = todoData.findIndex(el => el.id === id);
+        const index = this.indexArr(todoData, id);
         const data = {...todoData[index]};
         const newData = {...data, done: !data.done};
         const newArr = [
@@ -96,31 +108,38 @@ class Todo extends Component {
         })
     };
 
+    // здесь обнов-ся state и массив хранения удал ТоДо
     onDeleteTask = id => {
-        const {todoData} = this.state,
-            index = todoData.findIndex(el => el.id === id);
+        const {todoData, confirmDelete} = this.state;
+        this.showModal(); // перед удал вызваеться модальное окно
+        const index = this.indexArr(todoData, id);
+      if (confirmDelete) {
         const newArr = [
-            ...todoData.slice(0, index),
-            ...todoData.slice(index + 1)
+          ...todoData.slice(0, index),
+          ...todoData.slice(index + 1)
         ];
-        this.createDeleteObj(todoData, index)
-        this.setState(() => {
-            return {
-                todoData: newArr,
-                deletedTodo: this.deletedArray
-            }
-        })
+        this.createDeleteObj(todoData, index);
 
+        this.setState(() => {
+
+          return {
+            todoData: newArr,
+            deletedTodo: this.deletedArray
+          }
+        })
+      }
     };
 
+
+    // здесь обраб-я удаленные ТоДо
     createDeleteObj(obj, index) {
         const sliceTask = [...obj.slice(index)];
         sliceTask[0].ifDelete = true;
         this.deletedArray.push(...sliceTask);
-        console.log(this.deletedArray)
         return this.deletedArray
     }
 
+    //фильтр бок панели принимает значение и сохр в сост-е
     resFilter = (filter) => {
         this.setState(() => {
             return {
@@ -129,6 +148,7 @@ class Todo extends Component {
         });
     };
 
+    // возвращает отфильтр объект
     getFilteredItems = (obj, filter) => {
         switch (filter) {
             case'all':
@@ -138,18 +158,56 @@ class Todo extends Component {
             case 'done':
                 return obj.filter(el => el.done);
             case 'deleted':
-                return this.onDeletedItems();
+                return this.deletedItems();
             default:
                 return obj;
         }
     };
 
-    onDeletedItems() {
+    // возвр state удаленных ТоДо
+    deletedItems() {
         return this.state.deletedTodo;
     }
 
+    // восстав удал То
     onRestoreDeleteItem = id => {
-        console.log(id)
+        const {todoData} = this.state;
+        const index = this.indexArr(this.deletedArray, id);
+        const sliceObj = this.deletedArray.splice(index, 1); // удалить от индекса
+        sliceObj[0].ifDelete = false;                                   //а второй аргумент сколько эл-тов
+        const newArr = [
+            ...todoData,
+            ...sliceObj,
+        ];
+        sliceObj.pop(); //очистить п окончанию массив
+        this.setState(() => {
+            return {
+                todoData: newArr,
+                deletedTodo: this.deletedArray
+            }
+        })
+    };
+
+    showModal = () => {
+            this.setState({
+                modalIsOpen: !this.state.modalIsOpen,
+                drawerIsOpen: !this.state.drawerIsOpen
+            })
+
+    };
+
+    btnModalClicked = (btnValue) => {
+
+        if (btnValue === 'delete') {
+          this.setState(({ confirmDelete }) => {
+            return {
+              confirmDelete: !confirmDelete
+            };
+          });
+          this.showModal()
+        } else {
+          this.showModal();
+        }
     };
 
     render() {
@@ -164,27 +222,31 @@ class Todo extends Component {
             cls.push(classes.overflow);   //добавление скролла по условию
 
         return (
-            <div className={classes.wrapper}>
-                <Sidebar
-                    todoData={todoData}
-                    doneCount={count}
-                    filter={this.resFilter}
-                />
-                <div className={cls.join(' ')}>
-                    <Time/>
-                    <TodoList
-                        todoData={showFilteredItems}
-                        onToggleDone={this.onToggleDone}
-                        onToggleImportant={this.onToggleImportant}
-                        onDeleteTask={this.onDeleteTask}
-                        onRestoreItem={this.onRestoreDeleteItem}
+                <div className={classes.wrapper}>
+                    { this.state.drawerIsOpen ? <Drawer/> : null }
+                    { this.state.modalIsOpen ? <Modal btnModalClicked={this.btnModalClicked}/> : null }
+                    
+                    <Sidebar
+                        todoData={todoData}
+                        doneCount={count}
+                        filter={this.resFilter}
                     />
-                    <AddTask
-                        onAddTask={this.onAddTask}
-                    />
-                    <Alert/>
+                    <div className={cls.join(' ')}>
+                        <Time/>
+
+                        <TodoList
+                            todoData={showFilteredItems}
+                            onToggleDone={this.onToggleDone}
+                            onToggleImportant={this.onToggleImportant}
+                            onDeleteTask={this.onDeleteTask}
+                            onRestoreItem={this.onRestoreDeleteItem}
+                        />
+                        <AddTask
+                            onAddTask={this.onAddTask}
+                        />
+                        <Alert/>
+                    </div>
                 </div>
-            </div>
         );
     }
 }

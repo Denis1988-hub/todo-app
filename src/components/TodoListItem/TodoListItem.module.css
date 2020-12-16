@@ -12,21 +12,25 @@
 
 i {
     font-size: 16px;
-    cursor: pointer;
     padding-right: 10px;
+    transition: 0.2s ease-in;
 }
 
 .done {
     text-decoration: line-through;
 }
 
-
 .remove, .important {
     float: right;
     padding: 0 10px 0 0;
+    cursor: pointer;
 }
 
-.remove {
+.important i:hover {
+    color: goldenrod;
+}
+
+.remove i:hover {
     color: red;
 }
 
@@ -49,7 +53,6 @@ i {
 
 .deletedIcon:hover {
     color: green;
-    transition: .2s;
 }
 
 
