@@ -110,10 +110,9 @@ class Todo extends Component {
 
     // здесь обнов-ся state и массив хранения удал ТоДо
     onDeleteTask = id => {
-        const {todoData, confirmDelete} = this.state;
+        const {todoData} = this.state;
         this.showModal(); // перед удал вызваеться модальное окно
         const index = this.indexArr(todoData, id);
-      if (confirmDelete) {
         const newArr = [
           ...todoData.slice(0, index),
           ...todoData.slice(index + 1)
@@ -127,7 +126,6 @@ class Todo extends Component {
             deletedTodo: this.deletedArray
           }
         })
-      }
     };
 
 
