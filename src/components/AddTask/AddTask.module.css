@@ -13,19 +13,23 @@
     height: 40px;
     background: none;
     color: darkgrey;
-    transition: 0.4s;
+    transition: 0.1s;
 }
 
-button:hover {
+.addTask button:hover {
     color: white;
-    transition: 0.4s;
+
 }
 
-button i {
+.addTask button:focus {
+    outline: none;
+}
+
+.addTask button i {
     padding: 5px;
 }
 
-input {
+.addTask input {
     width: 100%;
     margin-left: 10px;
     border:none;
@@ -37,7 +41,7 @@ input {
     line-height: 10px;
 }
 
-input::placeholder {
+.addTask input::placeholder {
     color: white;
     font-size: 13px;
     letter-spacing: 0.5px;

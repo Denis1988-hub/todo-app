@@ -6,14 +6,15 @@
     border-radius: 3px;
     margin-bottom: 3px;
     padding: 8px;
+    transition: all 0.4s;
 
 }
 
 
-i {
+.todoListItem i {
     font-size: 16px;
     padding-right: 10px;
-    transition: 0.2s ease-in;
+
 }
 
 .done {
@@ -24,14 +25,17 @@ i {
     float: right;
     padding: 0 10px 0 0;
     cursor: pointer;
+
 }
 
 .important i:hover {
     color: goldenrod;
+    transition: 0.1s ease-in-out;
 }
 
 .remove i:hover {
     color: red;
+    transition: 0.3s ease-in;
 }
 
 .deleted {
@@ -53,6 +57,7 @@ i {
 
 .deletedIcon:hover {
     color: green;
+    cursor: pointer;
 }
 
 

@@ -1,9 +1,0 @@
-.Drawer {
-    background-color: rgba(0,0,0, 0.75);
-    width: inherit;
-    display: block;
-    height: 100%;
-    z-index: 90;
-    position: absolute;
-    transition: all 0.5s ease-in-out;
-}

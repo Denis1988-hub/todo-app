@@ -20,7 +20,7 @@ const TodoList = ({todoData, onToggleDone, onToggleImportant, onDeleteTask, onRe
                         : todoData.map((item) => {
                         return (
                             <TodoListItem
-                                key={item.id}
+                                key={item.id + item.label}
                                 {...item}
                                 onToggleDone={() => onToggleDone(item.id)}
                                 onToggleImportant={() => onToggleImportant(item.id)}
