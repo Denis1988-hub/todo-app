@@ -7,8 +7,18 @@ import Sidebar from "../Sidebar/Sidebar";
 
 class Todo extends Component {
 
+  getFromLocalStorage = () => {
+    let data = JSON.parse(localStorage.getItem('TodoData'));
+    if (data === null)  data = [];
+    return data
+  };
+
+  setToLocalStorage = (data) => {
+    localStorage.setItem('TodoData', JSON.stringify(data))
+  };
+
   state = {
-    todoData: [],
+    todoData: this.getFromLocalStorage(),
     count: 0,
     filter: '',
     deletedTodo: [],
@@ -16,6 +26,8 @@ class Todo extends Component {
 
   idNum = 0;
   deletedArray = [];  //здесь будут сохраняться удаленные toDo
+
+
 
   // генератор ТоДо
   createTodoData(label) {
@@ -28,15 +40,11 @@ class Todo extends Component {
     }
   }
 
-  // принимает текст и отправляет в генератор тоДо
-  addItem(text) {
-    return this.createTodoData(text)
-  };
 
   /* метод принимает новый ТоДо соединяеться с пред массивом и обнов хранилище */
   onAddTask = text => {
     const {todoData} = this.state;
-    const newTask = this.addItem(text);
+    const newTask = this.createTodoData(text);
     const newArr = [
       ...todoData,
       newTask
@@ -105,7 +113,7 @@ class Todo extends Component {
             deletedTodo: this.deletedArray,
           }
         });
-      }, 300);
+      }, 200);
       clearTimeout();
     };
 
@@ -171,6 +179,8 @@ class Todo extends Component {
   render() {
     const {todoData, count, filter} = this.state;
     const showFilteredItems = this.getFilteredItems(todoData, filter);
+
+    this.setToLocalStorage(todoData);
 
     const cls = [
       classes.todo
