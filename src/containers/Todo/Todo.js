@@ -115,7 +115,8 @@ class Todo extends Component {
         });
       }, 200);
       clearTimeout();
-    };
+
+};
 
 
   // здесь обраб-я удаленные ТоДо
@@ -175,12 +176,13 @@ class Todo extends Component {
     })
   };
 
-
   render() {
     const {todoData, count, filter} = this.state;
     const showFilteredItems = this.getFilteredItems(todoData, filter);
 
+    // здесь каждый раз обновляються данные в хранилище
     this.setToLocalStorage(todoData);
+
 
     const cls = [
       classes.todo
@@ -191,7 +193,6 @@ class Todo extends Component {
 
     return (
         <div className={classes.wrapper}>
-
           <Sidebar
               todoData={todoData}
               doneCount={count}
